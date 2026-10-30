@@ -1,0 +1,395 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --brand-50: #fbf4ff;
+  --brand-100: #f4e6ff;
+  --brand-600: #9333ea;
+  --brand-700: #7e22ce;
+  --brand-900: #3b0764;
+  --accent-pink: #ec4899;
+  --accent-amber: #f59e0b;
+  --accent-emerald: #10b981;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-600: #4b5563;
+  --gray-900: #111827;
+  --font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-family); background-color: var(--gray-50); color: var(--gray-900); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Top Bar y Navbar */
+.top-bar { background: linear-gradient(to right, var(--brand-900), var(--accent-pink)); color: white; text-align: center; padding: 8px; font-size: 12px; }
+.navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--gray-100); position: sticky; top: 0; z-index: 100; }
+.nav-content { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+.logo { font-size: 24px; font-weight: 800; background: linear-gradient(to right, var(--brand-900), var(--accent-pink)); -webkit-background-clip: text; color: transparent; cursor: pointer; }
+.nav-links { display: flex; gap: 24px; font-size: 14px; font-weight: 500; align-items: center; }
+.nav-links a { transition: color 0.3s; }
+.nav-links a:hover { color: var(--brand-600); }
+.cart-btn { position: relative; font-size: 24px; display: flex; align-items: center; }
+.cart-badge { position: absolute; top: -5px; right: -8px; background: var(--brand-600); color: white; font-size: 10px; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+/* Hero y Catálogo */
+.hero { background: linear-gradient(135deg, var(--brand-900), #1e1b4b); color: white; padding: 80px 0; text-align: center; }
+.hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+.hero p { color: #d1d5db; font-size: 18px; margin-bottom: 32px; max-width: 600px; margin-inline: auto; }
+.btn-primary { background: var(--accent-pink); color: white; padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 16px; transition: 0.3s; display: inline-block; }
+.btn-primary:hover { opacity: 0.9; transform: scale(1.05); }
+.catalog { padding: 60px 20px; }
+.section-title { font-size: 32px; font-weight: 800; margin-bottom: 24px; text-align: center; color: var(--brand-900); }
+.filter-buttons { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+.filter-btn { padding: 8px 20px; border-radius: 30px; font-size: 14px; font-weight: 600; background: white; border: 1px solid var(--gray-200); color: var(--gray-600); transition: 0.3s; }
+.filter-btn:hover, .filter-btn.active { background: var(--brand-600); color: white; border-color: var(--brand-600); }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
+.product-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; display: flex; flex-direction: column; }
+.product-card:hover { box-shadow: 0 10px 15px rgba(0,0,0,0.1); transform: translateY(-5px); }
+.product-img { width: 100%; height: 250px; object-fit: cover; }
+.product-info { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+.badge { background: var(--brand-600); color: white; padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: bold; display: inline-block; margin-bottom: 8px; align-self: flex-start; }
+.product-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+.product-price { font-size: 20px; font-weight: 800; color: var(--brand-700); margin-top: auto; }
+.add-btn { background: var(--brand-50); color: var(--brand-700); padding: 10px; border-radius: 8px; font-weight: bold; font-size: 14px; margin-top: 12px; width: 100%; transition: 0.3s; }
+.add-btn:hover { background: var(--brand-600); color: white; }
+
+/* --- ESTILOS GENERALES DE MODALES --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 2000; backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: white;
+  width: 90%; max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  background: var(--brand-50);
+  padding: 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.modal-header h2 { font-size: 20px; color: var(--brand-900); margin: 0; }
+.modal-header button { font-size: 20px; color: var(--gray-600); transition: 0.2s; }
+.modal-header button:hover { color: var(--accent-pink); }
+
+.modal-body { padding: 24px; }
+.modal-body p { font-size: 14px; color: var(--gray-600); margin-bottom: 20px; }
+
+/* Botones del menú de Base de Datos (Actualizados para Grid) */
+.db-option-btn {
+  background: white; 
+  border: 1px solid var(--gray-200); 
+  padding: 16px;
+  border-radius: 12px; 
+  text-align: left; 
+  font-size: 15px; 
+  font-weight: 600;
+  color: var(--brand-900); 
+  transition: 0.3s; 
+  display: flex; 
+  align-items: center; 
+  gap: 10px;
+}
+.db-option-btn:hover { 
+  background: var(--brand-50); 
+  border-color: var(--brand-600); 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* --- ESTILOS ESPECÍFICOS DEL LOGIN / REGISTRO --- */
+.auth-modal { max-width: 400px; }
+
+.input-group { margin-bottom: 16px; display: flex; flex-direction: column; }
+.input-group label { font-size: 12px; font-weight: bold; margin-bottom: 6px; color: var(--gray-600); }
+.input-group input {
+  padding: 12px; border: 1px solid var(--gray-200); border-radius: 8px;
+  font-size: 14px; font-family: inherit; transition: 0.2s;
+}
+.input-group input:focus {
+  outline: none; border-color: var(--brand-600);
+  box-shadow: 0 0 0 3px var(--brand-100);
+}
+
+.auth-switch {
+  text-align: center; font-size: 13px; margin-top: 16px; color: var(--gray-600);
+}
+.auth-switch span {
+  color: var(--brand-600); font-weight: bold; cursor: pointer;
+}
+.auth-switch span:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero h1 { font-size: 32px; }
+}
+
+/* --- ESTILOS PARA LAS PANTALLAS DE ADMINISTRACIÓN --- */
+.back-btn {
+  background: var(--gray-100);
+  color: var(--gray-900);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+.back-btn:hover { background: var(--gray-200); }
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-header h2 { font-size: 28px; color: var(--brand-900); }
+
+.table-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-table th {
+  background: var(--brand-50);
+  color: var(--brand-900);
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.admin-table td {
+  padding: 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-600);
+}
+
+.admin-table tr:last-child td { border-bottom: none; }
+
+.action-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 8px;
+  transition: 0.2s;
+}
+
+.action-btn.edit { background: var(--brand-100); color: var(--brand-700); }
+.action-btn.edit:hover { background: var(--brand-600); color: white; }
+
+.action-btn.delete { background: #fee2e2; color: #dc2626; }
+.action-btn.delete:hover { background: #dc2626; color: white; }
+
+/* --- ESTILOS DE "¿CÓMO FUNCIONA?" --- */
+.how-it-works {
+  background: linear-gradient(to bottom, white, var(--brand-50));
+  padding: 80px 0;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 50px auto;
+}
+
+.section-subtitle {
+  color: var(--brand-600);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.section-description {
+  color: var(--gray-600);
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.step-card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid var(--gray-100);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  transition: 0.3s;
+  position: relative;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  border-color: var(--brand-100);
+}
+
+.step-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--brand-50);
+  color: var(--brand-600);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 20px auto;
+}
+
+.step-card h3 {
+  font-size: 18px;
+  color: var(--gray-900);
+  margin-bottom: 10px;
+}
+
+.step-card p {
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+/* =========================================
+   ESTILOS PARA EL FORMULARIO DE PUBLICAR
+   ========================================= */
+
+/* Contenedor del formulario */
+.form-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--gray-200);
+  margin-bottom: 30px;
+}
+
+/* Título dentro del formulario */
+.form-card h3 {
+  color: var(--brand-900);
+  margin-bottom: 20px;
+  font-size: 20px;
+  border-bottom: 2px solid var(--brand-50);
+  padding-bottom: 10px;
+}
+
+/* Área de texto (Descripción) */
+textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 12px; 
+  border-radius: 8px; 
+  border: 1px solid var(--gray-200); 
+  font-family: inherit;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+textarea:focus {
+  outline: none; 
+  border-color: var(--brand-600);
+  box-shadow: 0 0 0 3px var(--brand-100);
+}
+
+/* =========================================
+   MEJORAS PARA LAS TABLAS (Scroll y diseño)
+   ========================================= */
+
+/* Permite hacer scroll horizontal si hay muchos campos */
+.table-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  overflow-x: auto; /* Clave para que no se rompa en celular */
+  width: 100%;
+}
+
+/* Ajuste para que las celdas no se encojan demasiado */
+.admin-table th, 
+.admin-table td {
+  white-space: nowrap; 
+}
+
+/* Si el texto es muy largo, le ponemos puntos suspensivos */
+.admin-table td span {
+  display: inline-block;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+/* =========================================
+   BOTONES DE ACCIÓN (Editar/Eliminar)
+   ========================================= */
+
+/* Contenedor de los botones en la tabla */
+.admin-table td:last-child {
+  white-space: nowrap;
+}
+
+/* Botón de Editar (Amarillo/Naranja) */
+.action-btn.edit {
+  background: #fef3c7;
+  color: #d97706;
+  margin-right: 5px;
+}
+.action-btn.edit:hover {
+  background: #f59e0b;
+  color: white;
+}
+
+/* Botón de Eliminar (Rojo) */
+.action-btn.delete {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.action-btn.delete:hover {
+  background: #dc2626;
+  color: white;
+}
+
+.nav-links { 
+  display: flex; 
+  gap: 15px; /* Reducimos el espacio de 24px a 15px */
+  font-size: 14px; 
+  font-weight: 500; 
+  align-items: center; 
+  flex-wrap: nowrap;
+}
